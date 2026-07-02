@@ -2,6 +2,7 @@ import { useState, useCallback, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 
 const HERO_IMG = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/15b6f2a5-573d-4020-b3f1-a99cb5c49509.jpg';
+const WARRIOR_IMG = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/62dfb46d-5596-48a2-9ace-c02d5b686ace.jpg';
 
 type Screen = 'menu' | 'game' | 'load' | 'settings';
 
@@ -50,6 +51,7 @@ export default function Index() {
   const [floats, setFloats] = useState<FloatText[]>([]);
   const [heroShake, setHeroShake] = useState(false);
   const [enemyShake, setEnemyShake] = useState(false);
+  const [heroLunge, setHeroLunge] = useState(false);
   const [log, setLog] = useState<string>('Тьма пробуждается. Обнажи свой клинок.');
   const floatId = useRef(0);
 
@@ -83,6 +85,8 @@ export default function Index() {
     const crit = Math.random() < critChance;
     if (crit) dmg = Math.round(dmg * (has('fury') ? 2 : 1.5));
 
+    setHeroLunge(true);
+    setTimeout(() => setHeroLunge(false), 300);
     spawnFloat(`-${dmg}`, crit);
     setEnemyShake(true);
     setTimeout(() => setEnemyShake(false), 300);
@@ -227,25 +231,47 @@ export default function Index() {
           </div>
         </div>
 
-        {/* Enemy */}
-        <div className={`blade-border rounded-lg bg-card/70 backdrop-blur p-6 mb-6 text-center relative overflow-hidden ${enemyShake ? 'animate-shake' : ''}`}>
-          <div className="absolute inset-0 pointer-events-none">
+        {/* Battle Arena */}
+        <div className="blade-border rounded-lg bg-gradient-to-b from-card/40 to-background/80 backdrop-blur mb-6 relative overflow-hidden h-72">
+          {/* ground */}
+          <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-black/80 to-transparent" />
+          <div className="absolute bottom-16 inset-x-0 h-px bg-primary/30" />
+
+          {/* floating damage */}
+          <div className="absolute inset-0 pointer-events-none z-20">
             {floats.map((f) => (
               <span
                 key={f.id}
-                className={`absolute top-1/3 font-gothic font-black animate-float-up ${f.crit ? 'text-accent text-4xl' : 'text-primary text-2xl'}`}
-                style={{ left: `${f.x}%` }}
+                className={`absolute top-1/4 font-gothic font-black animate-float-up ${f.crit ? 'text-accent text-4xl' : 'text-primary text-2xl'}`}
+                style={{ left: `${f.x + 25}%` }}
               >
                 {f.value}{f.crit && '!'}
               </span>
             ))}
           </div>
-          <Icon name={enemy.icon} size={64} className="mx-auto text-primary mb-2 animate-flicker" fallback="Skull" />
-          <h3 className="font-gothic font-bold text-xl text-foreground mb-3">{enemy.name}</h3>
-          <div className="h-3 rounded-full bg-secondary overflow-hidden max-w-sm mx-auto">
-            <div className="h-full bg-gradient-to-r from-destructive to-primary transition-all duration-300" style={{ width: `${(enemyHp / enemy.maxHp) * 100}%` }} />
+
+          {/* HERO — side view, left */}
+          <div className={`absolute bottom-14 left-4 md:left-10 z-10 ${heroLunge ? 'animate-lunge' : 'animate-idle'} ${heroShake ? 'animate-shake' : ''}`}>
+            <img
+              src={WARRIOR_IMG}
+              alt="Воин"
+              className="h-44 md:h-52 w-auto object-contain drop-shadow-[0_0_25px_hsl(14_88%_45%/0.5)]"
+              style={{ maskImage: 'linear-gradient(to bottom, black 88%, transparent)' }}
+            />
           </div>
-          <p className="text-xs text-muted-foreground mt-1 font-gothic">{Math.max(0, enemyHp)} / {enemy.maxHp}</p>
+
+          {/* ENEMY — right */}
+          <div className={`absolute bottom-16 right-6 md:right-14 z-10 text-center ${enemyShake ? 'animate-shake' : ''}`}>
+            <Icon name={enemy.icon} size={72} className="text-primary animate-flicker drop-shadow-[0_0_20px_hsl(0_72%_40%/0.6)]" fallback="Skull" />
+            <p className="font-gothic font-bold text-sm text-foreground mt-1 whitespace-nowrap">{enemy.name}</p>
+            <div className="h-2.5 rounded-full bg-secondary overflow-hidden w-32 mx-auto mt-1">
+              <div className="h-full bg-gradient-to-r from-destructive to-primary transition-all duration-300" style={{ width: `${(enemyHp / enemy.maxHp) * 100}%` }} />
+            </div>
+            <p className="text-[10px] text-muted-foreground mt-0.5 font-gothic">{Math.max(0, enemyHp)} / {enemy.maxHp}</p>
+          </div>
+
+          {/* VS mark */}
+          <span className="absolute top-4 left-1/2 -translate-x-1/2 font-gothic text-accent/50 text-xs tracking-[0.4em]">СРАЖЕНИЕ</span>
         </div>
 
         {/* Hero HP + attack */}
