@@ -197,17 +197,17 @@
 
 @keyframes lunge {
   0% {
-    transform: translateX(0) scaleX(1);
+    transform: translateX(0);
   }
-  40% {
-    transform: translateX(30px) scaleX(1.05);
+  35% {
+    transform: translateX(52px);
   }
   100% {
-    transform: translateX(0) scaleX(1);
+    transform: translateX(0);
   }
 }
 .animate-lunge {
-  animation: lunge 0.3s ease-out;
+  animation: lunge 0.38s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes idle-breathe {
@@ -216,9 +216,173 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-5px);
   }
 }
 .animate-idle {
-  animation: idle-breathe 3s ease-in-out infinite;
+  animation: idle-breathe 2.4s ease-in-out infinite;
+}
+
+@keyframes monster-idle {
+  0%,
+  100% {
+    transform: scaleX(-1) translateY(0);
+  }
+  50% {
+    transform: scaleX(-1) translateY(-7px);
+  }
+}
+.animate-monster-idle {
+  animation: monster-idle 3s ease-in-out infinite;
+}
+.animate-monster-hurt {
+  animation: monster-hurt 0.35s ease-out;
+}
+
+@keyframes monster-hurt {
+  0%,
+  100% {
+    transform: scaleX(-1) translateX(0);
+  }
+  30% {
+    transform: scaleX(-1) translateX(18px);
+  }
+  60% {
+    transform: scaleX(-1) translateX(-8px);
+  }
+}
+
+/* --- SVG warrior limb animations --- */
+/* Hero body bob */
+@keyframes hero-body-bob {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+/* Leg walk cycle */
+@keyframes leg-front-idle {
+  0%,
+  100% {
+    transform-origin: top center;
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform-origin: top center;
+    transform: rotate(8deg);
+  }
+}
+@keyframes leg-back-idle {
+  0%,
+  100% {
+    transform-origin: top center;
+    transform: rotate(8deg);
+  }
+  50% {
+    transform-origin: top center;
+    transform: rotate(-8deg);
+  }
+}
+/* Sword arm swing */
+@keyframes arm-idle {
+  0%,
+  100% {
+    transform-origin: 30% 10%;
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform-origin: 30% 10%;
+    transform: rotate(5deg);
+  }
+}
+@keyframes arm-attack {
+  0% {
+    transform-origin: 30% 10%;
+    transform: rotate(-50deg);
+  }
+  40% {
+    transform-origin: 30% 10%;
+    transform: rotate(70deg);
+  }
+  100% {
+    transform-origin: 30% 10%;
+    transform: rotate(-10deg);
+  }
+}
+/* Cape flow */
+@keyframes cape-flow {
+  0%,
+  100% {
+    transform-origin: top left;
+    transform: rotate(-3deg) skewY(1deg);
+  }
+  50% {
+    transform-origin: top left;
+    transform: rotate(5deg) skewY(-2deg);
+  }
+}
+/* Purple aura pulse */
+@keyframes aura-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
+/* Monster body menace */
+@keyframes enemy-menace {
+  0%,
+  100% {
+    transform: scaleX(-1) translateY(0) scale(1);
+  }
+  50% {
+    transform: scaleX(-1) translateY(-8px) scale(1.02);
+  }
+}
+/* Red aura pulse */
+@keyframes red-aura {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.06);
+  }
+}
+
+.hero-body-group {
+  animation: hero-body-bob 2.4s ease-in-out infinite;
+}
+.hero-arm {
+  animation: arm-idle 2.4s ease-in-out infinite;
+}
+.hero-arm.attacking {
+  animation: arm-attack 0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.hero-leg-front {
+  animation: leg-front-idle 2.4s ease-in-out infinite;
+}
+.hero-leg-back {
+  animation: leg-back-idle 2.4s ease-in-out infinite;
+}
+.hero-cape {
+  animation: cape-flow 2.4s ease-in-out infinite;
+}
+.hero-aura {
+  animation: aura-pulse 2s ease-in-out infinite;
+}
+.enemy-root {
+  animation: enemy-menace 3s ease-in-out infinite;
+}
+.enemy-aura {
+  animation: red-aura 2.5s ease-in-out infinite;
 }
