@@ -1,4 +1,4 @@
-const MONSTER_SPRITE = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/8058a8ce-99a0-4342-887f-117bc1bb5576.jpg';
+const MONSTER_SPRITE = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/794ab326-9adf-48ab-8a21-92ecf9fa32cc.jpg';
 
 const AURA_COLORS = [
   '#dc2626', // red
@@ -34,7 +34,7 @@ export default function MonsterSVG({ hurt, enemyIdx }: Props) {
           height: '100%',
           objectFit: 'contain',
           objectPosition: 'bottom',
-          filter: `brightness(0) drop-shadow(0 0 16px ${aura}) drop-shadow(0 0 40px ${aura}88)`,
+          filter: `drop-shadow(0 0 18px ${aura}cc) drop-shadow(0 0 45px ${aura}66)`,
           maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
           userSelect: 'none',

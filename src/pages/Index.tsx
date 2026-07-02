@@ -29,32 +29,29 @@ const ENEMIES = [
   { name: 'Владыка Тьмы',     maxHp: 260, dmg: 34 },
 ];
 
-const MENU_WARRIOR_BIG   = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/97cbb287-5887-4ce3-925b-f54467c06679.jpg';
-const MENU_WARRIOR_SMALL = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/cc902d5a-b39c-4122-b03c-daa1cb1eb926.jpg';
-
-const silhouette = (glow: string) => [
-  'brightness(0)',
-  `drop-shadow(0 0 18px ${glow})`,
-  `drop-shadow(0 0 50px ${glow}88)`,
-].join(' ');
+const MENU_SCENE = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/5c3d9c24-8b54-4d94-b416-9eb0d7ed4a83.jpg';
 
 function MenuWarrior() {
   return (
-    <div style={{ animation: 'idle-breathe 3s ease-in-out infinite' }}>
+    <div style={{
+      animation: 'idle-breathe 3s ease-in-out infinite',
+      position: 'relative',
+      lineHeight: 0,
+    }}>
       <img
-        src={MENU_WARRIOR_BIG}
-        alt="warrior"
+        src={MENU_SCENE}
+        alt="warriors"
         draggable={false}
         style={{
-          height: 340,
+          height: 370,
           width: 'auto',
           objectFit: 'contain',
-          objectPosition: 'bottom',
-          filter: silhouette('#c026d3'),
-          maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+          objectPosition: 'bottom center',
+          maskImage: 'linear-gradient(to bottom, black 75%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 75%, transparent 100%)',
           userSelect: 'none',
           display: 'block',
+          filter: 'drop-shadow(0 0 30px #9333ea66)',
         }}
       />
     </div>
@@ -62,26 +59,7 @@ function MenuWarrior() {
 }
 
 function MenuWarriorSmall() {
-  return (
-    <div style={{ animation: 'idle-breathe 2.6s ease-in-out infinite', animationDelay: '0.9s' }}>
-      <img
-        src={MENU_WARRIOR_SMALL}
-        alt="warrior small"
-        draggable={false}
-        style={{
-          height: 210,
-          width: 'auto',
-          objectFit: 'contain',
-          objectPosition: 'bottom',
-          filter: silhouette('#06b6d4'),
-          maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
-          userSelect: 'none',
-          display: 'block',
-        }}
-      />
-    </div>
-  );
+  return null;
 }
 
 

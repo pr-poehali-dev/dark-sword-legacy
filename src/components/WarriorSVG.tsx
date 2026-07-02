@@ -1,5 +1,5 @@
-const IDLE_SPRITE   = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/97cbb287-5887-4ce3-925b-f54467c06679.jpg';
-const ATTACK_SPRITE = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/f1f9a9ef-7de5-42d7-8071-32232ab967b1.jpg';
+const IDLE_SPRITE   = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/a36f1084-a795-497e-a7f4-f13eb4f0a275.jpg';
+const ATTACK_SPRITE = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/38a2e8c7-0897-43a1-b1a9-523fb3a00cce.jpg';
 
 interface Props {
   attacking: boolean;
@@ -25,7 +25,7 @@ export default function WarriorSVG({ attacking, hurt }: Props) {
           height: '100%',
           objectFit: 'contain',
           objectPosition: 'bottom',
-          filter: 'brightness(0) drop-shadow(0 0 16px #c026d3) drop-shadow(0 0 36px #9333ea88)',
+          filter: 'drop-shadow(0 0 20px #c026d3bb) drop-shadow(0 0 50px #9333ea66)',
           maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
           userSelect: 'none',
