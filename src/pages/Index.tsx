@@ -3,10 +3,10 @@ import Icon from '@/components/ui/icon';
 import WarriorSVG from '@/components/WarriorSVG';
 import MonsterSVG from '@/components/MonsterSVG';
 
-const HERO_IMG = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/15b6f2a5-573d-4020-b3f1-a99cb5c49509.jpg';
-const ARENA_BG = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/1cf0aae9-165b-4840-985a-ba6810be5a7d.jpg';
+const MENU_BG   = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/5888a153-4b25-454c-8291-288cf9410759.jpg';
+const ARENA_BG  = 'https://cdn.poehali.dev/projects/6d68c520-376e-41f0-b478-2f63707924a5/files/1cf0aae9-165b-4840-985a-ba6810be5a7d.jpg';
 
-type Screen = 'menu' | 'game' | 'load' | 'settings';
+type Screen = 'menu' | 'game' | 'settings';
 
 interface Skill {
   id: string; name: string; icon: string; desc: string; cost: number; learned: boolean;
@@ -29,23 +29,147 @@ const ENEMIES = [
   { name: 'Владыка Тьмы',     maxHp: 260, dmg: 34 },
 ];
 
+/* ─── Big silhouette warrior for menu ─── */
+function MenuWarrior() {
+  return (
+    <svg viewBox="0 0 200 380" width="180" height="340" style={{ overflow: 'visible', filter: 'drop-shadow(0 0 22px #7e22ce99)' }}>
+      <ellipse className="hero-aura" cx="100" cy="240" rx="70" ry="130" fill="#6d28d9" opacity="0.28" />
+      <g className="hero-body-group">
+        {/* cape */}
+        <g className="hero-cape">
+          <path d="M95 130 Q60 200 45 310 Q68 295 82 270 Q76 230 86 180 Z" fill="#0d0818" />
+        </g>
+        {/* back leg */}
+        <g className="hero-leg-back" style={{ transformOrigin: '82px 260px' }}>
+          <rect x="73" y="260" width="20" height="72" rx="9" fill="#0d0818" />
+          <rect x="67" y="324" width="30" height="14" rx="5" fill="#0d0818" />
+        </g>
+        {/* torso */}
+        <rect x="60" y="155" width="80" height="110" rx="14" fill="#130d22" />
+        <path d="M64 164 Q100 152 136 164 L132 230 Q100 240 68 230 Z" fill="#1e1038" />
+        {/* shoulder L */}
+        <ellipse cx="58" cy="166" rx="18" ry="13" fill="#2a1548" />
+        <ellipse cx="142" cy="166" rx="18" ry="13" fill="#2a1548" />
+        {/* chest rune */}
+        <path d="M86 185 L100 178 L114 185 L110 200 L100 205 L90 200Z" fill="none" stroke="#7c3aed" strokeWidth="1.5" opacity="0.7"/>
+        <circle cx="100" cy="192" r="4" fill="#9333ea" opacity="0.8" />
+        {/* front leg */}
+        <g className="hero-leg-front" style={{ transformOrigin: '110px 260px' }}>
+          <rect x="100" y="260" width="20" height="72" rx="9" fill="#1a0d2e" />
+          <rect x="96" y="324" width="34" height="14" rx="5" fill="#1a0d2e" />
+        </g>
+        {/* sword arm */}
+        <g className="hero-arm" style={{ transformOrigin: '138px 168px' }}>
+          <rect x="132" y="164" width="20" height="50" rx="9" fill="#1e1038" />
+          <rect x="128" y="210" width="26" height="22" rx="7" fill="#2a1548" />
+          {/* grip */}
+          <rect x="139" y="228" width="10" height="68" rx="3" fill="#3b1f5e" />
+          {/* guard */}
+          <rect x="122" y="290" width="44" height="9" rx="4" fill="#6d28d9" />
+          {/* blade */}
+          <path d="M140 299 L144 299 L148 420 L136 420 Z" fill="url(#menuBlade)" />
+          <path d="M143.5 302 L145 416" stroke="#ddd6fe" strokeWidth="1.5" opacity="0.6" />
+          <defs>
+            <linearGradient id="menuBlade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"  stopColor="#a855f7" />
+              <stop offset="55%" stopColor="#5b21b6" />
+              <stop offset="100%" stopColor="#0d0818" />
+            </linearGradient>
+          </defs>
+        </g>
+        {/* shield arm */}
+        <rect x="46" y="164" width="18" height="50" rx="9" fill="#1e1038" />
+        <rect x="42" y="210" width="24" height="22" rx="7" fill="#2a1548" />
+        <path d="M22 210 Q14 232 20 258 Q30 270 44 258 Q52 236 46 210 Z" fill="#1e1038" stroke="#7c3aed" strokeWidth="2.5" />
+        <path d="M25 220 Q18 235 24 252" stroke="#9333ea" strokeWidth="1.5" opacity="0.5" />
+        {/* neck */}
+        <rect x="88" y="138" width="24" height="22" rx="7" fill="#130d22" />
+        {/* head / helmet */}
+        <ellipse cx="100" cy="118" rx="34" ry="30" fill="#130d22" />
+        {/* helmet crest */}
+        <path d="M100 88 Q94 100 92 110 L108 110 Q106 100 100 88Z" fill="#1e1038" />
+        <path d="M100 82 L96 94 L104 94Z" fill="#2a1548" />
+        {/* visor ridge */}
+        <path d="M70 118 Q100 106 130 118" stroke="#7c3aed" strokeWidth="2.5" fill="none" />
+        <rect x="70" y="118" width="60" height="16" rx="6" fill="#0d0818" opacity="0.8" />
+        {/* eye glow */}
+        <ellipse cx="88"  cy="121" rx="8" ry="5" fill="#9333ea" opacity="0.7" />
+        <ellipse cx="88"  cy="121" rx="5" ry="3" fill="#c026d3" />
+        <ellipse cx="88"  cy="121" rx="2"  ry="1.5" fill="#f0abfc" />
+        {/* horns */}
+        <path d="M74 100 L54 62 L68 74" fill="#130d22" />
+        <path d="M74 100 L56 64 L70 76" fill="#2a1548" opacity="0.6" />
+        <path d="M126 100 L146 62 L132 74" fill="#130d22" />
+        <path d="M126 100 L144 64 L130 76" fill="#2a1548" opacity="0.6" />
+        {/* pauldron spikes */}
+        <path d="M44 155 L36 136 L48 148" fill="#2a1548" />
+        <path d="M52 150 L46 130 L56 144" fill="#2a1548" />
+        <path d="M156 155 L164 136 L152 148" fill="#2a1548" />
+        <path d="M148 150 L154 130 L144 144" fill="#2a1548" />
+      </g>
+    </svg>
+  );
+}
+
+/* ─── Small warrior silhouette (like the smaller hero in screenshot) ─── */
+function MenuWarriorSmall() {
+  return (
+    <svg viewBox="0 0 120 240" width="90" height="200" style={{ overflow: 'visible', filter: 'drop-shadow(0 0 10px #06b6d466)' }}>
+      <g className="hero-body-group" style={{ animationDelay: '0.8s' }}>
+        <rect x="44" y="95" width="34" height="70" rx="8" fill="#0c1a1a" />
+        <g className="hero-leg-back" style={{ transformOrigin: '50px 164px' }}>
+          <rect x="44" y="164" width="12" height="46" rx="6" fill="#091212" />
+          <rect x="40" y="204" width="20" height="10" rx="4" fill="#091212" />
+        </g>
+        <g className="hero-leg-front" style={{ transformOrigin: '66px 164px' }}>
+          <rect x="60" y="164" width="12" height="46" rx="6" fill="#0c1a1a" />
+          <rect x="58" y="204" width="22" height="10" rx="4" fill="#0c1a1a" />
+        </g>
+        <g className="hero-arm" style={{ transformOrigin: '78px 100px', animationDelay: '0.4s' }}>
+          <rect x="76" y="98" width="12" height="34" rx="6" fill="#0c1a1a" />
+          <rect x="74" y="128" width="16" height="14" rx="4" fill="#122020" />
+          <rect x="80" y="140" width="7" height="44" rx="2" fill="#1a3030" />
+          <rect x="73" y="180" width="22" height="6" rx="3" fill="#0e7490" />
+          <path d="M82 186 L84 186 L86 240 L80 240Z" fill="url(#smBlade)" />
+          <defs>
+            <linearGradient id="smBlade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"  stopColor="#22d3ee" />
+              <stop offset="100%" stopColor="#0c1a1a" />
+            </linearGradient>
+          </defs>
+        </g>
+        <rect x="30" y="98" width="12" height="34" rx="6" fill="#0c1a1a" />
+        <ellipse cx="61" cy="82" rx="18" ry="17" fill="#0c1a1a" />
+        <path d="M46 82 Q61 74 76 82" stroke="#0e7490" strokeWidth="2" fill="none" />
+        <ellipse cx="53" cy="84" rx="5" ry="3" fill="#06b6d4" opacity="0.9" />
+        <ellipse cx="53" cy="84" rx="2.5" ry="1.5" fill="#e0f2fe" />
+        <path d="M50 68 L40 50 L48 58" fill="#0c1a1a" />
+        <path d="M72 68 L82 50 L74 58" fill="#0c1a1a" />
+      </g>
+    </svg>
+  );
+}
+
 export default function Index() {
-  const [screen, setScreen]     = useState<Screen>('menu');
-  const [hp, setHp]             = useState(100);
-  const [maxHp, setMaxHp]       = useState(100);
-  const [level, setLevel]       = useState(1);
-  const [xp, setXp]             = useState(0);
-  const [points, setPoints]     = useState(0);
-  const [skills, setSkills]     = useState<Skill[]>(INITIAL_SKILLS);
-  const [enemyIdx, setEnemyIdx] = useState(0);
-  const [enemyHp, setEnemyHp]   = useState(ENEMIES[0].maxHp);
-  const [floats, setFloats]     = useState<FloatText[]>([]);
-  const [heroLunge, setHeroLunge]   = useState(false);
-  const [heroHurt, setHeroHurt]     = useState(false);
-  const [enemyHurt, setEnemyHurt]   = useState(false);
+  const [screen, setScreen]       = useState<Screen>('menu');
+  const [coins, setCoins]         = useState(1240);
+  const [gems, setGems]           = useState(30);
+  const [energy, setEnergy]       = useState(29);
+  const [hp, setHp]               = useState(100);
+  const [maxHp, setMaxHp]         = useState(100);
+  const [level, setLevel]         = useState(1);
+  const [xp, setXp]               = useState(0);
+  const [points, setPoints]       = useState(0);
+  const [skills, setSkills]       = useState<Skill[]>(INITIAL_SKILLS);
+  const [enemyIdx, setEnemyIdx]   = useState(0);
+  const [enemyHp, setEnemyHp]     = useState(ENEMIES[0].maxHp);
+  const [floats, setFloats]       = useState<FloatText[]>([]);
+  const [heroLunge, setHeroLunge] = useState(false);
+  const [heroHurt, setHeroHurt]   = useState(false);
+  const [enemyHurt, setEnemyHurt] = useState(false);
   const [heroAttack, setHeroAttack] = useState(false);
-  const [flash, setFlash]           = useState(false);
-  const [log, setLog]               = useState('Тьма пробуждается. Обнажи свой клинок.');
+  const [flash, setFlash]         = useState(false);
+  const [log, setLog]             = useState('Тьма пробуждается. Обнажи свой клинок.');
   const floatId = useRef(0);
 
   const xpNeeded = level * 100;
@@ -57,6 +181,12 @@ export default function Index() {
     setFloats((f) => [...f, { id, value, crit }]);
     setTimeout(() => setFloats((f) => f.filter((x) => x.id !== id)), 900);
   }, []);
+
+  const startGame = () => {
+    setHp(maxHp); setEnemyIdx(0); setEnemyHp(ENEMIES[0].maxHp);
+    setLog('Тьма пробуждается. Обнажи свой клинок.');
+    setScreen('game');
+  };
 
   const resetBattle = () => {
     setHp(100); setMaxHp(100); setLevel(1); setXp(0);
@@ -73,12 +203,9 @@ export default function Index() {
     const crit = Math.random() < critChance;
     if (crit) dmg = Math.round(dmg * (has('fury') ? 2 : 1.5));
 
-    // hero animation
-    setHeroLunge(true);
-    setHeroAttack(true);
+    setHeroLunge(true); setHeroAttack(true);
     setTimeout(() => { setHeroLunge(false); setHeroAttack(false); }, 380);
 
-    // hit flash + enemy react
     setTimeout(() => {
       setFlash(true);
       setTimeout(() => setFlash(false), 120);
@@ -92,6 +219,7 @@ export default function Index() {
     const newEnemyHp = enemyHp - dmg;
     if (newEnemyHp <= 0) {
       const gained = 40 + enemyIdx * 30;
+      setCoins((c) => c + gained * 2);
       setLog(`${enemy.name} повержен! +${gained} опыта.`);
       let newXp = xp + gained, lvl = level, pts = points, mHp = maxHp;
       while (newXp >= lvl * 100) { newXp -= lvl * 100; lvl++; pts++; mHp += 15; }
@@ -102,14 +230,13 @@ export default function Index() {
     }
     setEnemyHp(newEnemyHp);
 
-    // enemy counter
     setTimeout(() => {
       const dealt = enemy.dmg + Math.floor(Math.random() * 5);
       setHeroHurt(true);
       setTimeout(() => setHeroHurt(false), 380);
       setHp((h) => {
         const res = h - dealt;
-        if (res <= 0) { setLog('Ты пал во тьме... Смерть — не конец.'); return 0; }
+        if (res <= 0) { setLog('Ты пал во тьме...'); return 0; }
         setLog(`${enemy.name} наносит ${dealt} урона.`);
         return res;
       });
@@ -123,65 +250,114 @@ export default function Index() {
     if (skill.id === 'vigor') { setMaxHp((m) => m + 40); setHp((h) => h + 40); }
   };
 
-  // ===== MENU =====
-  if (screen === 'menu' || screen === 'load' || screen === 'settings') {
+  // ════════════════════════════════════════
+  //  MENU
+  // ════════════════════════════════════════
+  if (screen === 'menu' || screen === 'settings') {
     return (
-      <div className="min-h-screen text-foreground relative overflow-hidden flex items-center justify-center" style={{ background: '#060309' }}>
-        <div className="absolute inset-0 bg-cover bg-center opacity-30 animate-flicker" style={{ backgroundImage: `url(${HERO_IMG})` }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/65 to-black/25" />
-        <div className="relative z-10 text-center px-6 animate-fade-in">
-          <p className="font-gothic tracking-[0.5em] text-accent text-xs mb-3 opacity-70">ЛЕГЕНДА КЛИНКА</p>
-          <h1 className="font-gothic font-black text-6xl md:text-8xl text-primary text-glow tracking-wider mb-2">DARK SWORD</h1>
-          <div className="w-40 h-px bg-accent/50 mx-auto my-5" />
-          <p className="text-muted-foreground italic text-base mb-10 max-w-md mx-auto">
-            Один воин. Бесконечная тьма. Только сталь решает, кто увидит рассвет.
-          </p>
-          {screen === 'menu' && (
-            <div className="flex flex-col gap-3 max-w-xs mx-auto">
-              <MenuBtn icon="Sword" label="Начать игру" onClick={resetBattle} primary />
-              <MenuBtn icon="FolderOpen" label="Загрузить" onClick={() => setScreen('load')} />
-              <MenuBtn icon="Settings" label="Настройки" onClick={() => setScreen('settings')} />
+      <div className="h-screen flex flex-col overflow-hidden" style={{ background: '#050508', fontFamily: "'Cinzel', serif" }}>
+
+        {/* ── TOP RESOURCE BAR ── */}
+        <div className="flex items-center gap-1 px-2 py-1.5 flex-shrink-0"
+          style={{ background: 'linear-gradient(180deg,#1a1410 0%,#0e0c08 100%)', borderBottom: '1px solid #2a2010' }}>
+          {/* Coins */}
+          <ResourceChip icon="🪙" value={coins.toLocaleString()} color="#f59e0b" />
+          <div className="w-px h-5 bg-white/10" />
+          {/* Gems / mana */}
+          <ResourceChip icon="💎" value={gems.toString()} color="#818cf8" />
+          <div className="w-px h-5 bg-white/10" />
+          {/* Energy */}
+          <ResourceChip icon="⚡" value={energy.toString()} color="#a3e635" />
+          <div className="flex-1" />
+          {/* right icons */}
+          <TopIconBtn icon="Mail" />
+          <TopIconBtn icon="Upload" />
+          <TopIconBtn icon="Settings" onClick={() => setScreen('settings')} />
+        </div>
+
+        {/* ── MAIN AREA ── */}
+        <div className="relative flex-1 overflow-hidden">
+          {/* BG */}
+          <div className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${MENU_BG})` }} />
+          <div className="absolute inset-0"
+            style={{ background: 'linear-gradient(180deg, rgba(5,5,8,0.15) 0%, rgba(5,5,8,0.05) 40%, rgba(5,5,8,0.65) 100%)' }} />
+
+          {/* Left side buttons */}
+          <div className="absolute left-0 top-4 flex flex-col gap-2 z-10">
+            <SideBtn icon="Crown"    label=""         color="#f59e0b" />
+            <SideBtn icon="Trophy"   label=""         color="#94a3b8" />
+            <SideBtn icon="Sword"    label="Уникальный\nпросмотр" color="#ef4444" red />
+            <SideBtn icon="Swords"   label="Ежедневный\nбой"  color="#94a3b8" />
+            <SideBtn icon="Skull"    label="Высокая\nсложность" color="#94a3b8" />
+          </div>
+
+          {/* Characters silhouettes — center */}
+          <div className="absolute inset-x-0 bottom-0 flex items-end justify-center gap-0 z-10"
+            style={{ paddingBottom: '10px' }}>
+            {/* big warrior */}
+            <div style={{ marginRight: '-20px', marginBottom: '0px' }}>
+              <MenuWarrior />
             </div>
-          )}
-          {screen === 'load' && (
-            <div className="max-w-sm mx-auto blade-border rounded bg-card/80 p-6 backdrop-blur">
-              <p className="text-muted-foreground italic mb-4">Сохранённые души не найдены.</p>
-              <MenuBtn icon="ArrowLeft" label="Назад" onClick={() => setScreen('menu')} />
+            {/* small warrior */}
+            <div style={{ marginLeft: '10px', marginBottom: '18px' }}>
+              <MenuWarriorSmall />
             </div>
-          )}
-          {screen === 'settings' && (
-            <div className="max-w-sm mx-auto blade-border rounded bg-card/80 p-6 backdrop-blur space-y-4 text-left">
-              {['Громкость музыки', 'Звуковые эффекты', 'Кровавые эффекты'].map((s) => (
-                <div key={s} className="flex items-center justify-between">
-                  <span className="font-gothic text-sm text-foreground/90">{s}</span>
-                  <div className="w-24 h-2 rounded-full bg-secondary overflow-hidden">
-                    <div className="h-full bg-primary" style={{ width: '70%' }} />
-                  </div>
-                </div>
-              ))}
-              <MenuBtn icon="ArrowLeft" label="Назад" onClick={() => setScreen('menu')} />
+          </div>
+
+          {/* Timer + name + xp bar (bottom-left overlay) */}
+          <div className="absolute bottom-3 left-20 z-20">
+            <p className="text-white/60 text-xs font-gothic mb-0.5" style={{ fontFamily: 'monospace' }}>119:59:43</p>
+            <p className="text-white font-bold text-sm font-gothic">Lv.{level} Герой</p>
+            <div className="w-28 h-1.5 rounded-full mt-1 overflow-hidden" style={{ background: '#1a1a1a' }}>
+              <div className="h-full rounded-full transition-all" style={{ width: `${(xp / xpNeeded) * 100}%`, background: '#6d28d9' }} />
             </div>
-          )}
+            <p className="text-white/40 text-[10px] mt-0.5">{((xp / xpNeeded) * 100).toFixed(1)}%</p>
+          </div>
+
+          {/* Right side promo panels */}
+          <div className="absolute right-2 top-2 flex flex-col gap-2 z-10 w-28">
+            <PromoPanel label="Ограниченно" sub="" color="#ec4899" badge="LIMITED" />
+            <PromoPanel label="🪙 Бесплатные монеты" sub="+1000 золота" color="#f59e0b" badge="FREE" />
+            <PromoPanel label="💜 3 Бесплатных духа" sub="Смотреть рекламу" color="#8b5cf6" badge="FREE" />
+          </div>
+
+          {/* Dungeon + Arena buttons — bottom right */}
+          <div className="absolute bottom-3 right-2 flex flex-col gap-2 z-20">
+            <BigMenuBtn label="Подземелье" color="#374151" />
+            <BigMenuBtn label="Арена" color="#92400e" gold />
+          </div>
+        </div>
+
+        {/* ── BOTTOM NAV ── */}
+        <div className="flex-shrink-0 flex"
+          style={{ background: 'linear-gradient(180deg,#1a150a 0%,#0e0c06 100%)', borderTop: '1px solid #2a2010' }}>
+          <NavBtn icon="ShieldCheck" label="Снаряжение" dot />
+          <NavBtn icon="ShoppingBag" label="Магазин"    dot />
+          <NavBtn icon="Users"       label="Гильдия"    />
+          <NavBtn icon="Castle"      label="Башня\n1F" sub="ПРОЙДЕНО" />
+          <NavBtn icon="Swords"      label="Начать бой"  onClick={startGame} primary />
         </div>
       </div>
     );
   }
 
-  // ===== GAME =====
-  const dead        = hp <= 0;
-  const heroHpPct   = Math.max(0, (hp / maxHp) * 100);
-  const enemyHpPct  = Math.max(0, (enemyHp / enemy.maxHp) * 100);
-  const xpPct       = (xp / xpNeeded) * 100;
+  // ════════════════════════════════════════
+  //  GAME SCREEN
+  // ════════════════════════════════════════
+  const dead       = hp <= 0;
+  const heroHpPct  = Math.max(0, (hp / maxHp) * 100);
+  const enemyHpPct = Math.max(0, (enemyHp / enemy.maxHp) * 100);
+  const xpPct      = (xp / xpNeeded) * 100;
 
   return (
-    <div className="min-h-screen flex flex-col text-foreground select-none" style={{ background: '#060309' }}>
+    <div className="h-screen flex flex-col text-foreground select-none overflow-hidden" style={{ background: '#060309' }}>
 
-      {/* ── TOP HUD ── */}
-      <div className="flex items-center justify-between px-3 pt-3 pb-1 gap-2 relative z-20">
-        {/* Hero HP */}
+      {/* TOP HUD */}
+      <div className="flex items-center justify-between px-3 pt-3 pb-1 gap-2 relative z-20 flex-shrink-0">
         <div className="flex items-center gap-2 flex-1 max-w-[45%]">
-          <div className="w-9 h-9 rounded border border-purple-700/60 bg-black flex-shrink-0 flex items-center justify-center overflow-hidden">
-            <span className="font-gothic text-purple-400 text-lg">⚔</span>
+          <div className="w-9 h-9 rounded border border-purple-700/60 bg-black flex-shrink-0 flex items-center justify-center">
+            <span className="text-purple-400 text-lg">⚔</span>
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex justify-between text-[10px] font-gothic text-white/50 mb-0.5">
@@ -198,21 +374,17 @@ export default function Index() {
           </div>
         </div>
 
-        {/* Center */}
         <div className="flex flex-col items-center gap-1">
           <button onClick={() => setScreen('menu')}
             className="font-gothic text-[10px] text-white/30 hover:text-primary transition-colors tracking-widest whitespace-nowrap">
             ← МЕНЮ
           </button>
-          {points > 0 && (
-            <span className="font-gothic text-[10px] text-yellow-400 animate-pulse">+{points} очк.</span>
-          )}
+          {points > 0 && <span className="font-gothic text-[10px] text-yellow-400 animate-pulse">+{points} очк.</span>}
         </div>
 
-        {/* Enemy HP */}
         <div className="flex items-center gap-2 flex-1 max-w-[45%] flex-row-reverse">
           <div className="w-9 h-9 rounded border border-red-800/60 bg-black flex-shrink-0 flex items-center justify-center">
-            <span className="font-gothic text-red-500 text-lg">☠</span>
+            <span className="text-red-500 text-lg">☠</span>
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex justify-between text-[10px] font-gothic text-white/50 mb-0.5">
@@ -220,7 +392,7 @@ export default function Index() {
               <span className="flex-shrink-0 ml-1">{Math.max(0, enemyHp)}/{enemy.maxHp}</span>
             </div>
             <div className="h-3 rounded-sm bg-black/90 overflow-hidden border border-white/8">
-              <div className="h-full rounded-sm transition-all duration-300 ml-auto"
+              <div className="h-full rounded-sm transition-all duration-300"
                 style={{ width: `${enemyHpPct}%`, background: 'linear-gradient(270deg,#7f1d1d,#dc2626)' }} />
             </div>
             <div className="h-1.5 rounded-sm bg-black/80 mt-0.5 border border-white/5" />
@@ -228,81 +400,60 @@ export default function Index() {
         </div>
       </div>
 
-      {/* ── BATTLE ARENA ── */}
-      <div className="relative overflow-hidden" style={{ height: '340px' }}>
-        {/* bg */}
+      {/* ARENA */}
+      <div className="relative overflow-hidden flex-1" style={{ minHeight: 0 }}>
         <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${ARENA_BG})` }} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/90" />
-        {/* side vignettes */}
-        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black/70 to-transparent" />
-        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black/70 to-transparent" />
+        <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black/70 to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black/70 to-transparent" />
 
-        {/* hit flash */}
         {flash && <div className="absolute inset-0 bg-white/15 z-30 pointer-events-none" />}
 
-        {/* floating damage */}
         <div className="absolute inset-0 pointer-events-none z-20 flex items-start justify-center">
           {floats.map((f) => (
             <span key={f.id}
               className={`absolute font-gothic font-black animate-float-up ${f.crit ? 'text-yellow-300 text-4xl' : 'text-red-400 text-2xl'}`}
-              style={{ top: '22%', left: '52%', transform: 'translateX(-50%)',
-                textShadow: f.crit ? '0 0 20px #fbbf24' : '0 0 12px #ef4444' }}
-            >
+              style={{ top: '20%', left: '52%', transform: 'translateX(-50%)',
+                textShadow: f.crit ? '0 0 20px #fbbf24' : '0 0 12px #ef4444' }}>
               {f.value}
             </span>
           ))}
         </div>
 
-        {/* stone floor */}
-        <div className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-black to-transparent" />
-        <div className="absolute bottom-10 inset-x-0 h-px bg-white/6" />
+        <div className="absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-black to-transparent" />
+        <div className="absolute bottom-8 inset-x-0 h-px bg-white/5" />
 
-        {/* HERO — left, SVG warrior */}
-        <div
-          className={`absolute bottom-8 z-10 ${heroLunge ? 'animate-lunge' : ''} ${heroHurt ? 'animate-shake' : ''}`}
-          style={{ left: '6%' }}
-        >
+        <div className={`absolute bottom-6 z-10 ${heroLunge ? 'animate-lunge' : ''} ${heroHurt ? 'animate-shake' : ''}`} style={{ left: '5%' }}>
           <WarriorSVG attacking={heroAttack} hurt={heroHurt} />
         </div>
 
-        {/* MONSTER — right, SVG monster */}
-        <div
-          className={`absolute bottom-6 z-10`}
-          style={{ right: '4%' }}
-        >
+        <div className="absolute bottom-4 z-10" style={{ right: '3%' }}>
           <MonsterSVG hurt={enemyHurt} enemyIdx={enemyIdx} />
         </div>
       </div>
 
-      {/* ── BOTTOM PANEL ── */}
-      <div className="flex-1 bg-gradient-to-b from-black/95 to-black px-4 pt-3 pb-5"
+      {/* BOTTOM PANEL */}
+      <div className="flex-shrink-0 bg-gradient-to-b from-black/95 to-black px-4 pt-3 pb-4"
         style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-
-        {/* log */}
         <p className="text-center font-gothic text-xs text-white/40 italic mb-3 min-h-[16px]">{log}</p>
 
         {dead ? (
           <div className="text-center">
-            <p className="font-gothic text-3xl text-red-500 text-glow mb-4">— ТЫ ПАЛ —</p>
+            <p className="font-gothic text-3xl text-red-500 mb-4" style={{ textShadow: '0 0 20px #ef4444' }}>— ТЫ ПАЛ —</p>
             <button onClick={resetBattle}
-              className="font-gothic bg-gradient-to-b from-primary to-destructive text-white px-10 py-3 rounded-sm blade-border hover:brightness-125 transition-all flex items-center gap-2 mx-auto">
+              className="font-gothic text-white px-10 py-3 rounded-sm transition-all flex items-center gap-2 mx-auto"
+              style={{ background: 'linear-gradient(180deg,#7c0000,#3a0000)', border: '1px solid rgba(220,38,38,0.45)' }}>
               <Icon name="RotateCcw" size={18} /> Восстать вновь
             </button>
           </div>
         ) : (
           <button onClick={attack}
             className="w-full font-gothic font-bold text-xl text-white py-4 rounded-sm active:scale-[0.97] transition-all flex items-center justify-center gap-3 mb-4"
-            style={{
-              background: 'linear-gradient(180deg,#6b0000 0%,#3a0000 100%)',
-              border: '1px solid rgba(220,38,38,0.45)',
-              boxShadow: '0 0 24px rgba(220,38,38,0.18), inset 0 1px 0 rgba(255,255,255,0.08)',
-            }}
-          >
+            style={{ background: 'linear-gradient(180deg,#6b0000,#3a0000)', border: '1px solid rgba(220,38,38,0.45)', boxShadow: '0 0 24px rgba(220,38,38,0.18)' }}>
             <Icon name="Swords" size={24} /> АТАКОВАТЬ
           </button>
         )}
 
-        {/* Skills */}
         <div className="flex items-center justify-between mb-2">
           <span className="font-gothic text-[11px] tracking-widest text-white/35 uppercase">Умения</span>
           <span className="font-gothic text-[11px] text-yellow-400">Очки: {points}</span>
@@ -312,13 +463,10 @@ export default function Index() {
             <button key={sk.id} onClick={() => learnSkill(sk)}
               disabled={sk.learned || points < sk.cost}
               className={`rounded-sm p-2 text-center transition-all border ${
-                sk.learned
-                  ? 'bg-purple-900/30 border-purple-500/50'
-                  : points >= sk.cost
-                  ? 'bg-white/5 border-white/12 hover:border-yellow-500/60 hover:bg-white/10 cursor-pointer'
-                  : 'bg-white/3 border-white/6 opacity-35 cursor-not-allowed'
-              }`}
-            >
+                sk.learned ? 'bg-purple-900/30 border-purple-500/50'
+                : points >= sk.cost ? 'bg-white/5 border-white/12 hover:border-yellow-500/60 cursor-pointer'
+                : 'bg-white/3 border-white/6 opacity-35 cursor-not-allowed'
+              }`}>
               <Icon name={sk.icon} size={18} className={`mx-auto mb-1 ${sk.learned ? 'text-purple-400' : 'text-white/60'}`} fallback="Sparkles" />
               <p className="font-gothic text-[9px] text-white/65 leading-tight">{sk.name}</p>
               {!sk.learned && <p className="font-gothic text-[9px] text-yellow-500/70 mt-0.5">({sk.cost})</p>}
@@ -331,15 +479,87 @@ export default function Index() {
   );
 }
 
-function MenuBtn({ icon, label, onClick, primary }: { icon: string; label: string; onClick: () => void; primary?: boolean }) {
+/* ── UI helpers ── */
+function ResourceChip({ icon, value, color }: { icon: string; value: string; color: string }) {
+  return (
+    <div className="flex items-center gap-1 px-2 py-0.5 rounded" style={{ background: 'rgba(0,0,0,0.4)' }}>
+      <span className="text-sm">{icon}</span>
+      <span className="font-gothic text-xs font-bold" style={{ color }}>{value}</span>
+      <span className="text-white/30 text-xs font-gothic cursor-pointer hover:text-white/60">+</span>
+    </div>
+  );
+}
+
+function TopIconBtn({ icon, onClick }: { icon: string; onClick?: () => void }) {
   return (
     <button onClick={onClick}
-      className={`font-gothic tracking-wider py-3 px-6 rounded-sm flex items-center justify-center gap-3 transition-all hover:brightness-125 active:scale-[0.98] w-full blade-border ${
-        primary ? 'text-white text-lg' : 'bg-white/5 text-white/75 border-white/10'
-      }`}
-      style={primary ? { background: 'linear-gradient(180deg,#7c0000,#3a0000)' } : undefined}
-    >
-      <Icon name={icon} size={18} fallback="Sword" /> {label}
+      className="w-8 h-8 flex items-center justify-center rounded transition-colors hover:bg-white/10"
+      style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.1)' }}>
+      <Icon name={icon} size={15} className="text-white/60" fallback="Settings" />
+    </button>
+  );
+}
+
+function SideBtn({ icon, label, color, red }: { icon: string; label: string; color: string; red?: boolean }) {
+  return (
+    <button
+      className="w-14 h-12 flex flex-col items-center justify-center rounded-r-lg text-[9px] leading-tight transition-all hover:brightness-125"
+      style={{
+        background: red ? 'linear-gradient(135deg,#7f1d1d,#450a0a)' : 'linear-gradient(135deg,#1c1a14,#111009)',
+        border: `1px solid ${red ? '#dc2626' : 'rgba(255,255,255,0.12)'}`,
+        borderLeft: 'none',
+        color: red ? '#fca5a5' : color,
+      }}>
+      <Icon name={icon} size={18} className="mb-0.5" fallback="Sword" style={{ color }} />
+      {label && <span style={{ color: red ? '#fca5a5' : 'rgba(255,255,255,0.5)', whiteSpace: 'pre' }}>{label}</span>}
+    </button>
+  );
+}
+
+function PromoPanel({ label, sub, color, badge }: { label: string; sub: string; color: string; badge: string }) {
+  return (
+    <div className="rounded text-center p-1.5 cursor-pointer hover:brightness-110 transition-all"
+      style={{ background: 'rgba(0,0,0,0.7)', border: `1px solid ${color}60`, position: 'relative', backdropFilter: 'blur(4px)' }}>
+      <span className="absolute -top-1.5 -right-1 text-[9px] font-bold px-1 py-0.5 rounded font-gothic"
+        style={{ background: color, color: '#000' }}>{badge}</span>
+      <p className="text-[10px] font-bold font-gothic leading-tight" style={{ color }}>{label}</p>
+      {sub && <p className="text-[9px] text-white/50 mt-0.5">{sub}</p>}
+    </div>
+  );
+}
+
+function BigMenuBtn({ label, color, gold }: { label: string; color: string; gold?: boolean }) {
+  return (
+    <button className="px-4 py-2.5 rounded font-gothic font-bold text-sm transition-all hover:brightness-125 active:scale-95"
+      style={{
+        background: gold ? 'linear-gradient(180deg,#92400e,#451a03)' : `linear-gradient(180deg,${color},#111)`,
+        border: gold ? '1px solid #f59e0b' : '1px solid rgba(255,255,255,0.15)',
+        color: gold ? '#fbbf24' : 'rgba(255,255,255,0.85)',
+        boxShadow: gold ? '0 0 12px rgba(245,158,11,0.3)' : 'none',
+        minWidth: '100px',
+      }}>
+      {label}
+    </button>
+  );
+}
+
+function NavBtn({ icon, label, dot, sub, onClick, primary }: {
+  icon: string; label: string; dot?: boolean; sub?: string; onClick?: () => void; primary?: boolean;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="flex-1 flex flex-col items-center justify-center py-2.5 gap-0.5 transition-all hover:brightness-125 active:scale-95 relative"
+      style={{
+        background: primary ? 'linear-gradient(180deg,#6b0000,#2a0000)' : 'transparent',
+        borderRight: '1px solid rgba(255,255,255,0.06)',
+        borderTop: primary ? '1px solid rgba(220,38,38,0.4)' : 'none',
+      }}>
+      {dot && <span className="absolute top-1.5 right-3 w-2 h-2 rounded-full bg-red-500" />}
+      <Icon name={icon} size={20} className={primary ? 'text-red-400' : 'text-white/60'} fallback="Sword" />
+      <span className="font-gothic text-[9px] leading-tight text-center whitespace-pre"
+        style={{ color: primary ? '#fca5a5' : 'rgba(255,255,255,0.5)' }}>{label}</span>
+      {sub && <span className="font-gothic text-[8px] text-green-400">{sub}</span>}
     </button>
   );
 }
