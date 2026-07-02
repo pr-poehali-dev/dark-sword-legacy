@@ -29,126 +29,160 @@ const ENEMIES = [
   { name: 'Владыка Тьмы',     maxHp: 260, dmg: 34 },
 ];
 
-/* ─── Big silhouette warrior for menu ─── */
+/* ─── Big silhouette warrior for menu — pure black like Dark Sword ─── */
 function MenuWarrior() {
+  const S = '#060309';
   return (
-    <svg viewBox="0 0 200 380" width="180" height="340" style={{ overflow: 'visible', filter: 'drop-shadow(0 0 22px #7e22ce99)' }}>
-      <ellipse className="hero-aura" cx="100" cy="240" rx="70" ry="130" fill="#6d28d9" opacity="0.28" />
+    <svg viewBox="0 0 220 430" width="200" height="390"
+      style={{ overflow: 'visible', filter: 'drop-shadow(0 0 28px #9333ea88) drop-shadow(0 0 60px #6d28d944)' }}>
+      <defs>
+        <linearGradient id="mBlade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stopColor="#0d0618"/>
+          <stop offset="100%" stopColor="#030106"/>
+        </linearGradient>
+        <radialGradient id="mAura" cx="50%" cy="70%" r="55%">
+          <stop offset="0%"   stopColor="#9333ea" stopOpacity="0.4"/>
+          <stop offset="100%" stopColor="#4c1d95" stopOpacity="0"/>
+        </radialGradient>
+      </defs>
+      {/* aura glow */}
+      <ellipse cx="110" cy="350" rx="90" ry="80" fill="url(#mAura)"/>
+      <ellipse cx="110" cy="415" rx="65" ry="14" fill="#7c3aed" opacity="0.25"/>
+
       <g className="hero-body-group">
-        {/* cape */}
+        {/* CAPE */}
         <g className="hero-cape">
-          <path d="M95 130 Q60 200 45 310 Q68 295 82 270 Q76 230 86 180 Z" fill="#0d0818" />
+          <path d="M105 148 Q68 230 52 360 Q72 344 88 316 Q82 274 96 210 Z" fill={S}/>
         </g>
-        {/* back leg */}
-        <g className="hero-leg-back" style={{ transformOrigin: '82px 260px' }}>
-          <rect x="73" y="260" width="20" height="72" rx="9" fill="#0d0818" />
-          <rect x="67" y="324" width="30" height="14" rx="5" fill="#0d0818" />
+        {/* BACK LEG */}
+        <g className="hero-leg-back" style={{ transformOrigin: '90px 292px' }}>
+          <path d="M90 292 Q84 326 78 358" stroke={S} strokeWidth="22" strokeLinecap="round" fill="none"/>
+          <path d="M78 358 Q70 380 62 394" stroke={S} strokeWidth="17" strokeLinecap="round" fill="none"/>
+          <path d="M62 394 Q46 404 34 398 Q48 388 62 386" fill={S}/>
         </g>
-        {/* torso */}
-        <rect x="60" y="155" width="80" height="110" rx="14" fill="#130d22" />
-        <path d="M64 164 Q100 152 136 164 L132 230 Q100 240 68 230 Z" fill="#1e1038" />
-        {/* shoulder L */}
-        <ellipse cx="58" cy="166" rx="18" ry="13" fill="#2a1548" />
-        <ellipse cx="142" cy="166" rx="18" ry="13" fill="#2a1548" />
-        {/* chest rune */}
-        <path d="M86 185 L100 178 L114 185 L110 200 L100 205 L90 200Z" fill="none" stroke="#7c3aed" strokeWidth="1.5" opacity="0.7"/>
-        <circle cx="100" cy="192" r="4" fill="#9333ea" opacity="0.8" />
-        {/* front leg */}
-        <g className="hero-leg-front" style={{ transformOrigin: '110px 260px' }}>
-          <rect x="100" y="260" width="20" height="72" rx="9" fill="#1a0d2e" />
-          <rect x="96" y="324" width="34" height="14" rx="5" fill="#1a0d2e" />
+        {/* TORSO — wide armoured silhouette */}
+        {/* lower */}
+        <path d="M72 262 Q110 272 148 262 L154 300 Q110 312 66 300 Z" fill={S}/>
+        {/* chest sides — big pauldrons */}
+        <path d="M74 158 Q52 168 44 196 Q40 228 58 262 L72 266 Q68 238 70 200 L76 162 Z" fill={S}/>
+        <path d="M146 158 Q168 168 176 196 Q180 228 162 262 L148 266 Q152 238 150 200 L144 162 Z" fill={S}/>
+        {/* main chest */}
+        <path d="M76 158 Q110 146 144 158 L150 262 Q110 274 70 262 Z" fill={S}/>
+        {/* shoulder spikes L */}
+        <path d="M50 170 L28 144 L46 160" fill={S}/>
+        <path d="M44 186 L18 164 L40 178" fill={S}/>
+        <path d="M40 204 L12 186 L36 198" fill={S}/>
+        {/* shoulder spikes R */}
+        <path d="M170 170 L192 144 L174 160" fill={S}/>
+        <path d="M176 186 L202 164 L180 178" fill={S}/>
+        <path d="M180 204 L208 186 L184 198" fill={S}/>
+        {/* FRONT LEG (bent forward) */}
+        <g className="hero-leg-front" style={{ transformOrigin: '126px 292px' }}>
+          <path d="M126 292 Q134 326 138 356" stroke={S} strokeWidth="24" strokeLinecap="round" fill="none"/>
+          <path d="M138 356 Q146 380 154 394" stroke={S} strokeWidth="18" strokeLinecap="round" fill="none"/>
+          <path d="M154 394 Q170 404 182 398 Q168 388 154 386" fill={S}/>
         </g>
-        {/* sword arm */}
-        <g className="hero-arm" style={{ transformOrigin: '138px 168px' }}>
-          <rect x="132" y="164" width="20" height="50" rx="9" fill="#1e1038" />
-          <rect x="128" y="210" width="26" height="22" rx="7" fill="#2a1548" />
+        {/* LEFT ARM */}
+        <path d="M70 168 Q48 196 40 224" stroke={S} strokeWidth="20" strokeLinecap="round" fill="none"/>
+        <path d="M40 224 Q34 248 38 268" stroke={S} strokeWidth="16" strokeLinecap="round" fill="none"/>
+        {/* RIGHT ARM + GREATSWORD */}
+        <g className="hero-arm" style={{ transformOrigin: '148px 172px' }}>
+          <path d="M148 172 Q168 200 172 230" stroke={S} strokeWidth="22" strokeLinecap="round" fill="none"/>
+          <path d="M172 230 Q178 256 172 278" stroke={S} strokeWidth="17" strokeLinecap="round" fill="none"/>
+          {/* GREATSWORD — massive like screenshot */}
           {/* grip */}
-          <rect x="139" y="228" width="10" height="68" rx="3" fill="#3b1f5e" />
-          {/* guard */}
-          <rect x="122" y="290" width="44" height="9" rx="4" fill="#6d28d9" />
-          {/* blade */}
-          <path d="M140 299 L144 299 L148 420 L136 420 Z" fill="url(#menuBlade)" />
-          <path d="M143.5 302 L145 416" stroke="#ddd6fe" strokeWidth="1.5" opacity="0.6" />
-          <defs>
-            <linearGradient id="menuBlade" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"  stopColor="#a855f7" />
-              <stop offset="55%" stopColor="#5b21b6" />
-              <stop offset="100%" stopColor="#0d0818" />
-            </linearGradient>
-          </defs>
+          <path d="M166 278 L176 278 L178 322 L164 322 Z" fill={S}/>
+          {/* crossguard — wide asymmetric */}
+          <path d="M130 318 L218 318 L215 330 L133 330 Z" fill={S}/>
+          <path d="M130 318 L118 308 L126 330 Z" fill={S}/>
+          <path d="M218 318 L230 308 L222 330 Z" fill={S}/>
+          {/* blade — wide at top, tapers */}
+          <path d="M140 330 L204 330 L174 500 Z" fill="url(#mBlade)"/>
+          {/* blade spine */}
+          <path d="M172 334 L171 494" stroke="#1a0a2e" strokeWidth="2.5" opacity="0.6"/>
+          {/* edge glint */}
+          <path d="M204 330 L174 500" stroke="#2d1060" strokeWidth="2" opacity="0.4"/>
         </g>
-        {/* shield arm */}
-        <rect x="46" y="164" width="18" height="50" rx="9" fill="#1e1038" />
-        <rect x="42" y="210" width="24" height="22" rx="7" fill="#2a1548" />
-        <path d="M22 210 Q14 232 20 258 Q30 270 44 258 Q52 236 46 210 Z" fill="#1e1038" stroke="#7c3aed" strokeWidth="2.5" />
-        <path d="M25 220 Q18 235 24 252" stroke="#9333ea" strokeWidth="1.5" opacity="0.5" />
-        {/* neck */}
-        <rect x="88" y="138" width="24" height="22" rx="7" fill="#130d22" />
-        {/* head / helmet */}
-        <ellipse cx="100" cy="118" rx="34" ry="30" fill="#130d22" />
+        {/* NECK */}
+        <path d="M98 146 Q110 138 122 146 L126 162 Q110 168 94 162 Z" fill={S}/>
+        {/* HEAD */}
+        <ellipse cx="110" cy="122" rx="36" ry="34" fill={S}/>
+        {/* visor */}
+        <path d="M80 126 Q110 136 140 126 L138 142 Q110 150 82 142 Z" fill="#030106"/>
+        {/* eye slit glow */}
+        <path d="M88 132 Q110 127 132 132" stroke="#c026d3" strokeWidth="3" opacity="0.9" strokeLinecap="round"/>
+        <path d="M90 132 Q110 128 130 132" stroke="#f0abfc" strokeWidth="1.2" opacity="0.65" strokeLinecap="round"/>
         {/* helmet crest */}
-        <path d="M100 88 Q94 100 92 110 L108 110 Q106 100 100 88Z" fill="#1e1038" />
-        <path d="M100 82 L96 94 L104 94Z" fill="#2a1548" />
-        {/* visor ridge */}
-        <path d="M70 118 Q100 106 130 118" stroke="#7c3aed" strokeWidth="2.5" fill="none" />
-        <rect x="70" y="118" width="60" height="16" rx="6" fill="#0d0818" opacity="0.8" />
-        {/* eye glow */}
-        <ellipse cx="88"  cy="121" rx="8" ry="5" fill="#9333ea" opacity="0.7" />
-        <ellipse cx="88"  cy="121" rx="5" ry="3" fill="#c026d3" />
-        <ellipse cx="88"  cy="121" rx="2"  ry="1.5" fill="#f0abfc" />
-        {/* horns */}
-        <path d="M74 100 L54 62 L68 74" fill="#130d22" />
-        <path d="M74 100 L56 64 L70 76" fill="#2a1548" opacity="0.6" />
-        <path d="M126 100 L146 62 L132 74" fill="#130d22" />
-        <path d="M126 100 L144 64 L130 76" fill="#2a1548" opacity="0.6" />
-        {/* pauldron spikes */}
-        <path d="M44 155 L36 136 L48 148" fill="#2a1548" />
-        <path d="M52 150 L46 130 L56 144" fill="#2a1548" />
-        <path d="M156 155 L164 136 L152 148" fill="#2a1548" />
-        <path d="M148 150 L154 130 L144 144" fill="#2a1548" />
+        <path d="M110 88 Q104 102 102 116 L118 116 Q116 102 110 88Z" fill={S}/>
+        <path d="M110 78 L105 94 L115 94Z" fill={S}/>
+        {/* HORNS — large curved */}
+        <path d="M82 100 Q54 62 62 32 Q74 52 76 76 Q74 82 82 100Z" fill={S}/>
+        <path d="M138 100 Q166 62 158 32 Q146 52 144 76 Q146 82 138 100Z" fill={S}/>
       </g>
     </svg>
   );
 }
 
-/* ─── Small warrior silhouette (like the smaller hero in screenshot) ─── */
+/* ─── Small warrior — also pure silhouette ─── */
 function MenuWarriorSmall() {
+  const S = '#060309';
   return (
-    <svg viewBox="0 0 120 240" width="90" height="200" style={{ overflow: 'visible', filter: 'drop-shadow(0 0 10px #06b6d466)' }}>
-      <g className="hero-body-group" style={{ animationDelay: '0.8s' }}>
-        <rect x="44" y="95" width="34" height="70" rx="8" fill="#0c1a1a" />
-        <g className="hero-leg-back" style={{ transformOrigin: '50px 164px' }}>
-          <rect x="44" y="164" width="12" height="46" rx="6" fill="#091212" />
-          <rect x="40" y="204" width="20" height="10" rx="4" fill="#091212" />
+    <svg viewBox="0 0 120 260" width="82" height="210"
+      style={{ overflow: 'visible', filter: 'drop-shadow(0 0 12px #06b6d455)' }}>
+      <ellipse cx="60" cy="252" rx="38" ry="8" fill="#06b6d4" opacity="0.18"/>
+      <g className="hero-body-group" style={{ animationDelay: '0.7s' }}>
+        {/* cape */}
+        <g className="hero-cape">
+          <path d="M58 88 Q42 130 36 200 Q48 192 54 176 Q52 150 58 118 Z" fill={S}/>
         </g>
-        <g className="hero-leg-front" style={{ transformOrigin: '66px 164px' }}>
-          <rect x="60" y="164" width="12" height="46" rx="6" fill="#0c1a1a" />
-          <rect x="58" y="204" width="22" height="10" rx="4" fill="#0c1a1a" />
+        {/* back leg */}
+        <g className="hero-leg-back" style={{ transformOrigin: '50px 172px' }}>
+          <path d="M50 172 Q46 196 42 216" stroke={S} strokeWidth="14" strokeLinecap="round" fill="none"/>
+          <path d="M42 216 Q38 230 32 240" stroke={S} strokeWidth="10" strokeLinecap="round" fill="none"/>
+          <path d="M32 240 Q24 246 18 242 Q26 236 32 234" fill={S}/>
         </g>
-        <g className="hero-arm" style={{ transformOrigin: '78px 100px', animationDelay: '0.4s' }}>
-          <rect x="76" y="98" width="12" height="34" rx="6" fill="#0c1a1a" />
-          <rect x="74" y="128" width="16" height="14" rx="4" fill="#122020" />
-          <rect x="80" y="140" width="7" height="44" rx="2" fill="#1a3030" />
-          <rect x="73" y="180" width="22" height="6" rx="3" fill="#0e7490" />
-          <path d="M82 186 L84 186 L86 240 L80 240Z" fill="url(#smBlade)" />
-          <defs>
-            <linearGradient id="smBlade" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"  stopColor="#22d3ee" />
-              <stop offset="100%" stopColor="#0c1a1a" />
-            </linearGradient>
-          </defs>
+        {/* torso */}
+        <path d="M38 98 Q60 90 82 98 L86 170 Q60 178 34 170 Z" fill={S}/>
+        <path d="M32 100 Q22 108 20 124 Q18 148 30 170 L38 172 Q36 150 38 118 Z" fill={S}/>
+        <path d="M88 100 Q98 108 100 124 Q102 148 90 170 L82 172 Q84 150 82 118 Z" fill={S}/>
+        {/* shoulder spikes */}
+        <path d="M28 106 L16 90 L26 100" fill={S}/>
+        <path d="M24 116 L10 102 L22 112" fill={S}/>
+        <path d="M92 106 L104 90 L94 100" fill={S}/>
+        <path d="M96 116 L110 102 L98 112" fill={S}/>
+        {/* front leg */}
+        <g className="hero-leg-front" style={{ transformOrigin: '70px 172px' }}>
+          <path d="M70 172 Q76 196 78 216" stroke={S} strokeWidth="15" strokeLinecap="round" fill="none"/>
+          <path d="M78 216 Q84 230 88 240" stroke={S} strokeWidth="11" strokeLinecap="round" fill="none"/>
+          <path d="M88 240 Q96 246 102 242 Q94 236 88 234" fill={S}/>
         </g>
-        <rect x="30" y="98" width="12" height="34" rx="6" fill="#0c1a1a" />
-        <ellipse cx="61" cy="82" rx="18" ry="17" fill="#0c1a1a" />
-        <path d="M46 82 Q61 74 76 82" stroke="#0e7490" strokeWidth="2" fill="none" />
-        <ellipse cx="53" cy="84" rx="5" ry="3" fill="#06b6d4" opacity="0.9" />
-        <ellipse cx="53" cy="84" rx="2.5" ry="1.5" fill="#e0f2fe" />
-        <path d="M50 68 L40 50 L48 58" fill="#0c1a1a" />
-        <path d="M72 68 L82 50 L74 58" fill="#0c1a1a" />
+        {/* left arm */}
+        <path d="M36 104 Q24 120 20 140" stroke={S} strokeWidth="12" strokeLinecap="round" fill="none"/>
+        {/* right arm + sword */}
+        <g className="hero-arm" style={{ transformOrigin: '84px 106px', animationDelay: '0.35s' }}>
+          <path d="M84 106 Q96 122 98 142" stroke={S} strokeWidth="13" strokeLinecap="round" fill="none"/>
+          <path d="M80 158 L90 158 L92 182 L78 182 Z" fill={S}/>
+          <path d="M64 178 L108 178 L106 186 L66 186 Z" fill={S}/>
+          <path d="M70 186 L100 186 L86 268 Z" fill={S}/>
+          <path d="M84 188 L83 264" stroke="#0e7490" strokeWidth="1.5" opacity="0.5"/>
+        </g>
+        {/* neck */}
+        <path d="M54 80 Q60 76 66 80 L68 92 Q60 96 52 92 Z" fill={S}/>
+        {/* head */}
+        <ellipse cx="60" cy="66" rx="22" ry="20" fill={S}/>
+        <path d="M42 70 Q60 78 78 70 L76 80 Q60 86 44 80 Z" fill="#030106"/>
+        <path d="M48 73 Q60 70 72 73" stroke="#06b6d4" strokeWidth="2" opacity="0.85" strokeLinecap="round"/>
+        {/* helmet top */}
+        <path d="M60 46 L57 58 L63 58Z" fill={S}/>
+        {/* horns */}
+        <path d="M44 56 Q30 36 36 20 Q42 32 42 46Z" fill={S}/>
+        <path d="M76 56 Q90 36 84 20 Q78 32 78 46Z" fill={S}/>
       </g>
     </svg>
   );
 }
+
+
 
 export default function Index() {
   const [screen, setScreen]       = useState<Screen>('menu');
